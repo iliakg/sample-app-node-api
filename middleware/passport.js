@@ -21,9 +21,9 @@ module.exports = passport => {
           done(null, false)
         }
       } catch (e) {
-        console.log(e)
+        console.log('JwtStrategy catch error')
+        console.error(e)
       }
-
     })
   )
 }

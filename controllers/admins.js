@@ -1,7 +1,7 @@
 const Admin = require('../models/Admin')
 const errorHandler = require('../utils/errorHandler')
 
-module.exports.getAll = async function(req, res) {
+module.exports.getAll = async function (req, res) {
   try {
     const admins = await Admin.find({})
     res.status(200).json(admins)
@@ -10,7 +10,7 @@ module.exports.getAll = async function(req, res) {
   }
 }
 
-module.exports.getById = async function(req, res) {
+module.exports.getById = async function (req, res) {
   try {
     const admin = await Admin.findById(req.params.id)
     res.status(200).json(admin)
@@ -19,10 +19,11 @@ module.exports.getById = async function(req, res) {
   }
 }
 
-module.exports.create = async function(req, res) {
+module.exports.create = async function (req, res) {
   const admin = new Admin({
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    password: req.body.password
   })
 
   try {
@@ -57,7 +58,7 @@ module.exports.create = async function(req, res) {
 
 }
 
-module.exports.update = async function(req, res) {
+module.exports.update = async function (req, res) {
   const updated = {
     name: req.body.name,
     email: req.body.email
@@ -75,7 +76,7 @@ module.exports.update = async function(req, res) {
   }
 }
 
-module.exports.remove = async function(req, res) {
+module.exports.remove = async function (req, res) {
   try {
     await Admin.remove({_id: req.params.id})
     res.status(200).json({
