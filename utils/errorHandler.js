@@ -1,5 +1,4 @@
 module.exports = (res, error) => {
-
   if (error.name === 'ValidationError') {
     let errors = []
 

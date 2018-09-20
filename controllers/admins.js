@@ -32,30 +32,6 @@ module.exports.create = async function (req, res) {
   } catch (e) {
     errorHandler(res, e)
   }
-
-
-  // const candidate = await Admin.findOne({email: req.body.email})
-  //
-  // if (candidate) {
-  //   res.status(422).json({
-  //     message: 'Email уже занят.'
-  //   })
-  // } else {
-  //   const salt = bcrypt.genSaltSync(10)
-  //   const password = req.body.password
-  //   const admin = new Admin({
-  //     email: req.body.email,
-  //     password: bcrypt.hashSync(password, salt)
-  //   })
-  //
-  //   try {
-  //     await admin.save()
-  //     res.status(201).json(admin)
-  //   } catch(e) {
-  //     errorHandler(res, e)
-  //   }
-  // }
-
 }
 
 module.exports.update = async function (req, res) {
