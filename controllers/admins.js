@@ -20,11 +20,7 @@ module.exports.getById = async function (req, res) {
 }
 
 module.exports.create = async function (req, res) {
-  const admin = new Admin({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
-  })
+  const admin = new Admin(adminParams(req.body))
 
   try {
     await admin.save()
@@ -35,16 +31,11 @@ module.exports.create = async function (req, res) {
 }
 
 module.exports.update = async function (req, res) {
-  const updated = {
-    name: req.body.name,
-    email: req.body.email
-  }
-
   try {
     const admin = await Admin.findOneAndUpdate(
       {_id: req.params.id},
-      {$set: updated},
-      {new: true}
+      adminParams(req.body),
+      {new: true, context: 'query'} // for unique validation
     )
     res.status(200).json(admin)
   } catch (e) {
@@ -60,5 +51,13 @@ module.exports.remove = async function (req, res) {
     })
   } catch (e) {
     errorHandler(res, e)
+  }
+}
+
+function adminParams(reqBody) {
+  return {
+    name: reqBody.name,
+    email: reqBody.email,
+    password: reqBody.password
   }
 }

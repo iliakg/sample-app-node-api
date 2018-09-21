@@ -4,7 +4,7 @@ const Admin = require('../models/Admin')
 const keys = require('../config/keys')
 const errorHandler = require('../utils/errorHandler')
 
-module.exports.login = async function(req, res) {
+module.exports.login = async function (req, res) {
   const candidate = await Admin.findOne({email: req.body.email})
 
   if (candidate) {
@@ -30,7 +30,7 @@ module.exports.login = async function(req, res) {
   }
 }
 
-module.exports.register = async function(req, res) {
+module.exports.register = async function (req, res) {
   const candidate = await Admin.findOne({email: req.body.email})
 
   if (candidate) {
@@ -46,7 +46,7 @@ module.exports.register = async function(req, res) {
     try {
       await admin.save()
       res.status(200).json({status: "ok"})
-    } catch(e) {
+    } catch (e) {
       errorHandler(res, e)
     }
   }

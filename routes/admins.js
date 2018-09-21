@@ -8,7 +8,7 @@ const pass = passport.authenticate('jwt', {session: false})
 router.get('/', pass, controller.getAll)
 router.get('/:id', pass, controller.getById)
 router.post('/', pass, controller.create)
-router.patch('/:id', pass, controller.update)
+router.put('/:id', pass, controller.update)
 router.delete('/:id', pass, controller.remove)
 
 module.exports = router

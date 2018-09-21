@@ -35,4 +35,22 @@ adminSchema.pre('save', function (next) {
   next()
 })
 
+adminSchema.pre('findOneAndUpdate', function (next) {
+  let password = this.getUpdate().password
+
+  // password validation
+  if (password && password.length >= 6 && password.length <= 50) {
+    this._update.encrypted_password = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    this._update.password = 'filtered'
+  }
+
+  if (!password) {
+    this._update.password = 'filtered'
+  }
+
+  this.setOptions({runValidators: true})
+
+  next()
+})
+
 module.exports = mongoose.model('admins', adminSchema)
