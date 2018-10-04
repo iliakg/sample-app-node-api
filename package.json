@@ -12,7 +12,8 @@
   },
   "scripts": {
     "start": "node index",
-    "server": "nodemon index"
+    "server": "nodemon index",
+    "test": "mocha --timeout 10000 --recursive --exit"
   },
   "keywords": [
     "express"
@@ -34,7 +35,10 @@
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "concurrently": "^3.5.1",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.4"
   }
 }
