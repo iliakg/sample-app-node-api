@@ -21,7 +21,7 @@ describe('Admins', () => {
   })
   afterEach(async () => await Admin.deleteMany({}))
 
-  describe('/GET admin', async () => {
+  describe('/GET admins', async () => {
     it('it should GET error if user not authorized', async () => {
       let res = await chai.request(server).get('/api/admins')
 

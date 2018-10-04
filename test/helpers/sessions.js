@@ -1,7 +1,7 @@
 const chai = require('chai')
 const Admin = require('../../models/Admin')
 
-exports.login = async function (server) {
+module.exports.login = async function (server) {
   let data = {email: 'test@gmail.com', password: '123456'}
   await Admin.create(data)
 

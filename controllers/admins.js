@@ -1,4 +1,5 @@
 const Admin = require('../models/Admin')
+const NotFoundError = require('../utils/errors').NotFoundError
 const errorHandler = require('../utils/errorHandler')
 
 module.exports.getAll = async function (req, res) {
@@ -13,6 +14,7 @@ module.exports.getAll = async function (req, res) {
 module.exports.getById = async function (req, res) {
   try {
     const admin = await Admin.findById(req.params.id)
+    if(!admin) throw new NotFoundError('Admin Not Found')
     res.status(200).json(admin)
   } catch (e) {
     errorHandler(res, e)
