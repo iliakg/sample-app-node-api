@@ -9,17 +9,12 @@ const expect = chai.expect
 chai.use(chaiHttp)
 
 describe('Admins', () => {
-  beforeEach(() => {
-    const array = [
-      {email: 'test1@gmail.com', password: '123456'},
-      {email: 'test2@gmail.com', password: '123456'},
-      {email: 'test3@gmail.com', password: '123456'},
-      {email: 'test4@gmail.com', password: '123456'},
-      {email: 'test5@gmail.com', password: '123456'}
-    ]
-    Admin.insertMany(array)
+  beforeEach(async () => {
+    const array = []
+    for (let i = 0; i < 25; i++) array.push({email: `test${i}@gmail.com`, password: '123456'})
+    await Admin.insertMany(array)
   })
-  afterEach(async () => await Admin.deleteMany({}))
+  afterEach(() => Admin.deleteMany({}))
 
   describe('/GET admins', async () => {
     it('it should GET error if user not authorized', async () => {
@@ -33,7 +28,7 @@ describe('Admins', () => {
       let res = await chai.request(server).get('/api/admins').set('Authorization', token)
 
       expect(res.status).to.equal(200)
-      expect(res.body.length).to.equal(6)
+      expect(res.body.length).to.equal(26)
     })
   })
 })

@@ -40,17 +40,15 @@ describe('Register', () => {
       expect(await Admin.countDocuments()).to.equal(1)
     })
 
-    // it('it should not register when not invalid email', async () => {
-    //   let res = await chai.request(server)
-    //     .post('/api/auth/register')
-    //     .send({email: 'testgmail', password: '123456'})
-    //
-    //   expect(res.status).to.equal(422)
-    //   expect(res.body.message).to.equal('Email уже занят.')
-    //   // console.log(res.body)
-    //
-    //   expect(await Admin.countDocuments()).to.equal(1)
-    // })
+    it('it should not register when not invalid email', async () => {
+      let res = await chai.request(server)
+        .post('/api/auth/register')
+        .send({email: 'testgmail', password: '123456'})
+
+      expect(res.status).to.equal(422)
+      expect(res.body).to.deep.include({path: 'email', message: 'Не верный формат Email'})
+      expect(await Admin.countDocuments()).to.equal(1)
+    })
 
     it('it should not register when password too short', async () => {
       let res = await chai.request(server)

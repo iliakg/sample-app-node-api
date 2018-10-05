@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const bcrypt = require('bcryptjs')
 
+const validateEmail = function (email) {
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+}
+
 const adminSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -12,7 +16,10 @@ const adminSchema = new mongoose.Schema({
     type: String,
     format: 'email',
     required: [true, 'Email не может быть пустым'],
-    unique: true
+    unique: true,
+    trim: true,
+    lowercase: true,
+    validate: [validateEmail, 'Не верный формат Email']
   },
   password: {
     type: String,

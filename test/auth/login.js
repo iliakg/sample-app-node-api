@@ -9,14 +9,13 @@ const JwtHelper = require('../helpers/jwt')
 chai.use(chaiHttp)
 
 describe('Login', () => {
-  let admin;
+  let admin
 
   beforeEach(async () => {
-    admin = new Admin({email: 'test@gmail.com', password: '123456'})
-    await admin.save()
+    admin = await Admin.create({email: 'test@gmail.com', password: '123456'})
   })
 
-  afterEach(async () => await Admin.deleteMany({}))
+  afterEach(() => Admin.deleteMany({}))
 
   describe('/POST login', () => {
     it('it should login', async () => {
